@@ -23,7 +23,8 @@ button{
 
 #input {
     grid-column-start: 1;
-    grid-column-end: 3
+    grid-column-end: 3;
+    overflow:hidden;
         /* grid-row: 1/3; */
 }
 
@@ -32,7 +33,8 @@ button{
     /* grid-column: 1; */
     /* grid-row: 1/3; */
     grid-column-start: 3;
-    grid-column-end: 5
+    grid-column-end: 5;
+    overflow:hidden;
 }
 
 .enter {
@@ -42,4 +44,6 @@ button{
     grid-column-end: 5;
     align-self:center;
     border:none !important;
+    width:100%;
+    height:100%;
 }
