@@ -1,14 +1,3 @@
-// const buildCalculator = () => {
-//     let numbers = '<tr>'
-//     for (let i = 1; i <= 9; i++) {
-//         numbers += `<td class='number'><button>${i}</button></td>`
-//         numbers += i == 3 ? '<td class=\'number\'><button>-</button></td>' : ''
-//         numbers += i == 6 ? '<td class=\'number\'><button>+</button></td>' : ''
-//         numbers += i % 3 == 0 ? '</tr><tr>' : ''
-//     }
-//     document.getElementById('calculator').insertAdjacentHTML('afterbegin', numbers)
-// }
-
 let input = document.getElementById('input')
 let result = document.getElementById('result')
 const operations = ['+', '-', '*', '/']
@@ -58,8 +47,8 @@ const buttonClicked = (value) => {
 
 const clearClicked = (inputLastChar) => {
     const inputText = input.innerHTML
-    if (isOperand(inputLastChar)) {//undo last operand
-        input.innerHTML = inputText.splice(0, -1)
+    if (isOperand(inputLastChar) && inputLastChar != '.') {//undo last operand
+        input.innerHTML = inputText.slice(0, -1)
     } else {//undo last number
         const indexOfLastNum = findBegIndexOfLastNumber(inputText)
         input.innerHTML = indexOfLastNum == 0 ? '0' : inputText.substring(0, indexOfLastNum)
@@ -77,7 +66,20 @@ const isOperand = (userChoice) => {
 
 const findBegIndexOfLastNumber = (inputText) => {
     for (let i = inputText.length - 1; i >= 0; i--) {
-        if (isOperand(inputText.charAt(i))) return i + 1
+        const currentChar = inputText.charAt(i)
+        if (isOperand(currentChar) && currentChar != '.') return i + 1
     }
     return 0
 }
+
+
+// const buildCalculator = () => {
+//     let numbers = '<tr>'
+//     for (let i = 1; i <= 9; i++) {
+//         numbers += `<td class='number'><button>${i}</button></td>`
+//         numbers += i == 3 ? '<td class=\'number\'><button>-</button></td>' : ''
+//         numbers += i == 6 ? '<td class=\'number\'><button>+</button></td>' : ''
+//         numbers += i % 3 == 0 ? '</tr><tr>' : ''
+//     }
+//     document.getElementById('calculator').insertAdjacentHTML('afterbegin', numbers)
+// }
