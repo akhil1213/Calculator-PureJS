@@ -5,12 +5,23 @@ const buttonClicked = (value) => {
     const resultText = result.innerHTML
     const inputString = input.innerHTML
     const inputLastChar = inputString.charAt(inputString.length - 1)
-    if (isOperand(value) && !isOperand(resultText)) input.innerHTML = resultText//if the result is a number, and current value is an operand then you want to chain operations/expressions
-    if (isOperand(value) && input.innerHTML == '') return//if current value is an operand and input string is blank return
-    if (!isOperand(resultText)) result.innerHTML = 'Result'//reset result html since theres a new operation
+
+    /*
+        if the result is a number, and current value is an operand then you want to chain
+        operations/expressions
+    */
+    if (isOperand(value) && !isOperand(resultText)) input.innerHTML = resultText
+
+    //if current value is an operand and input string is blank return
+    if (isOperand(value) && input.innerHTML == '') return
+
+    //reset result html since theres a new operation
+    if (!isOperand(resultText)) result.innerHTML = 'Result'
+
     if (input.innerHTML == '0') {
         input.innerHTML = ''
-        if (isOperand(value) && operations.includes(value)) {//for the case when you have 0(operand)anydigit
+        //for the case when you have 0(operand)anydigit
+        if (isOperand(value) && operations.includes(value)) {
             input.innerHTML = `0${value}`
             return
         }
@@ -24,7 +35,7 @@ const buttonClicked = (value) => {
             return//if last char is an operand and not a decimal, no need to evaluate
         }
         const inputIsZero = input.innerHTML == 0
-        if (inputIsZero) result.innerHTML = 0;
+        if (inputIsZero) result.innerHTML = 0;//evaluating 0 is just zero
         result.innerHTML = !inputIsZero ? eval(input.innerHTML) : result.innerHTML
         input.innerHTML = '0'
         return
@@ -42,9 +53,14 @@ const buttonClicked = (value) => {
             return;
         }
     }
+    //if last char is a minus sign, don't concatenate for negative number operations
     input.innerHTML += inputLastChar == '-' && value == '-' ? '' : value
 }
-
+/**
+ * if the last character of the input text is an operand then undo operand
+ * else its a number so you find the beginning index of the last number and remove
+ * @param {char} inputLastChar 
+ */
 const clearClicked = (inputLastChar) => {
     const inputText = input.innerHTML
     if (isOperand(inputLastChar) && inputLastChar != '.') {//undo last operand
@@ -56,14 +72,21 @@ const clearClicked = (inputLastChar) => {
 }
 /**
  * if the choice is not a floating point number
- * then it must be an operation
- * @param {value user entered} userChoice 
+ * then it must be an operand 
+ * @param {character} userChoice 
+ * @return {boolean} 
  */
 const isOperand = (userChoice) => {
     const matchFloatDigitRegex = /[+-]?([0-9]*[.])?[0-9]+/
     return !userChoice.match(matchFloatDigitRegex)
 }
-
+/**
+ * iterate through expression backwards and 
+ * find first operand and return index to the right
+ * which is the beginning of the last number
+ * @param {string} inputText 
+ * @return {number} begIndexOfLastNum
+ */
 const findBegIndexOfLastNumber = (inputText) => {
     for (let i = inputText.length - 1; i >= 0; i--) {
         const currentChar = inputText.charAt(i)
