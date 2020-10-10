@@ -8,12 +8,13 @@
     padding: 1em;
     border: 1px solid black;
 }
-
-.wrapper>div:nth-child(n+3):hover{
+.wrapper>div:nth-child(n+3):hover,.wrapper > button:hover{
     background-color: gray;
 }
-
-
+.wrapper button{
+    padding: 15px;
+    border: 1px solid black;
+}
 button{
     background-color: white;
     border:none;
