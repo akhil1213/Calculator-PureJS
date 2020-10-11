@@ -43,3 +43,12 @@ button{
     width:100%;
     height:100%;
 }
+.clicked{
+    animation-name: clickedAnimation;
+    animation-duration: 1.5s;
+}
+
+@keyframes clickedAnimation {
+    from {background-color: #dbdad7}
+    to {background-color: white;}
+}

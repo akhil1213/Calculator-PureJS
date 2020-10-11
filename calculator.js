@@ -1,6 +1,7 @@
 let input = document.getElementById('input')
 let result = document.getElementById('result')
 const operations = ['+', '-', '*', '/']
+
 const buttonClicked = (value) => {
     const resultText = result.innerHTML
     const inputString = input.innerHTML
@@ -95,6 +96,32 @@ const findBegIndexOfLastNumber = (inputText) => {
     return 0
 }
 
+// let prevClickedElement;
+// let validateKeyPressedRegexp = new RegExp(/[0-9]*[+./=-]*/) !validateKeyPressedRegexp.test(keyPressedText)
+this.addEventListener('keyup', (e) => {
+    const validButtons = ['backspace', 'enter', '.']
+    const invalidKeys = ['[', '(', ')', '[', ']', '{', '}', '\'', '|', '_', '?', ';', ':', '"', "'", '\\', '$', '^', '#', '@', '!', '&']
+    const keyPressedText = e.key.toLowerCase()
+    if ((!validButtons.includes(keyPressedText) &&
+        keyPressedText.charAt(0).toUpperCase() != keyPressedText.charAt(0).toLowerCase())
+        || invalidKeys.includes(keyPressedText)
+    ) {
+        return
+    }
+    const addClickedAnimation = (buttonId) => {
+        document.getElementById(buttonId).classList.add('clicked')
+    }
+    if (keyPressedText == 'backspace') {
+        buttonClicked('clear')
+        addClickedAnimation('clear')
+        addClickedAnimation('undo')
+        return
+    }
+    buttonClicked(keyPressedText)
+    addClickedAnimation(keyPressedText)
+    // if (prevClickedElement != undefined) prevClickedElement.classList.remove('clicked')
+    // prevClickedElement = curClickedElement
+});
 
 // const buildCalculator = () => {
 //     let numbers = '<tr>'
