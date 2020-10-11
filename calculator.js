@@ -6,7 +6,11 @@ const buttonClicked = (value) => {
     const resultText = result.innerHTML
     const inputString = input.innerHTML
     const inputLastChar = inputString.charAt(inputString.length - 1)
-
+    /*
+        for the case when you have a number and user accidentaly inputs
+        decimals after decimals i.e (54.56.75)
+    */
+    if (value == '.' && countDecimals(input.innerHTML) == 1) return
     /*
         if the result is a number, and current value is an operand then you want to chain
         operations/expressions
@@ -58,6 +62,20 @@ const buttonClicked = (value) => {
     input.innerHTML += inputLastChar == '-' && value == '-' ? '' : value
 }
 /**
+ * returns number of decimals of last number
+ * which is numbers from right before first operand
+ * @param {string} text
+ * @return {number} 
+ */
+const countDecimals = (text) => {
+    let decimalCount = 0
+    for (let i = text.length - 1; i >= 0; i--) {
+        if (isOperand(text.charAt(i)) && text.charAt(i) != '.') break
+        if (text.charAt(i) == '.') decimalCount++
+    }
+    return decimalCount
+}
+/**
  * if the last character of the input text is an operand then undo operand
  * else its a number so you find the beginning index of the last number and remove
  * @param {char} inputLastChar 
@@ -95,22 +113,30 @@ const findBegIndexOfLastNumber = (inputText) => {
     }
     return 0
 }
+const validateKey = (keyValue) => {
+    if (keyValue == 'backspace' || keyValue == 'enter' || keyValue == '*') return true
+    const validInputRegex = /[0-9]*[+./=-]*/
+    console.log(keyValue.match(validInputRegex)[0])
+    return keyValue.match(validInputRegex)[0] == keyValue
+}
 
 // let prevClickedElement;
 // let validateKeyPressedRegexp = new RegExp(/[0-9]*[+./=-]*/) !validateKeyPressedRegexp.test(keyPressedText)
 this.addEventListener('keyup', (e) => {
-    const validButtons = ['backspace', 'enter', '.']
-    const invalidKeys = ['[', '(', ')', '[', ']', '{', '}', '\'', '|', '_', '?', ';', ':', '"', "'", '\\', '$', '^', '#', '@', '!', '&']
     const keyPressedText = e.key.toLowerCase()
-    if ((!validButtons.includes(keyPressedText) &&
-        keyPressedText.charAt(0).toUpperCase() != keyPressedText.charAt(0).toLowerCase())
-        || invalidKeys.includes(keyPressedText)
-    ) {
+    const validInputRegex = /[0-9]*[+./=-]*/
+    console.log(keyPressedText)
+    if (!validateKey(keyPressedText)) {
+        console.log('invalid key')
         return
     }
     const addClickedAnimation = (buttonId) => {
         document.getElementById(buttonId).classList.add('clicked')
+        setTimeout(() => {
+            document.getElementById(buttonId).classList.remove('clicked')
+        }, 200)
     }
+
     if (keyPressedText == 'backspace') {
         buttonClicked('clear')
         addClickedAnimation('clear')
@@ -124,12 +150,19 @@ this.addEventListener('keyup', (e) => {
 });
 
 // const buildCalculator = () => {
-//     let numbers = '<tr>'
-//     for (let i = 1; i <= 9; i++) {
-//         numbers += `<td class='number'><button>${i}</button></td>`
-//         numbers += i == 3 ? '<td class=\'number\'><button>-</button></td>' : ''
-//         numbers += i == 6 ? '<td class=\'number\'><button>+</button></td>' : ''
-//         numbers += i % 3 == 0 ? '</tr><tr>' : ''
-//     }
-//     document.getElementById('calculator').insertAdjacentHTML('afterbegin', numbers)
+    //     let numbers = '<tr>'
+    //     for (let i = 1; i <= 9; i++) {
+        //         numbers += `<td class='number'><button>${i}</button></td>`
+        //         numbers += i == 3 ? '<td class=\'number\'><button>-</button></td>' : ''
+        //         numbers += i == 6 ? '<td class=\'number\'><button>+</button></td>' : ''
+        //         numbers += i % 3 == 0 ? '</tr><tr>' : ''
+        //     }
+        //     document.getElementById('calculator').insertAdjacentHTML('afterbegin', numbers)
+        // }
+
+// if ((!validButtons.includes(keyPressedText) &&
+//     keyPressedText.charAt(0).toUpperCase() != keyPressedText.charAt(0).toLowerCase())
+//     || invalidKeys.includes(keyPressedText)
+// ) {
+//     return
 // }

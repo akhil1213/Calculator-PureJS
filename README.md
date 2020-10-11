@@ -10,8 +10,10 @@ Simple Calculator
 * Clear button that clears the most recent entry (Operand or Number)
 * User can chain operations
 * User can multiply negative numbers and replace previous operands with new operands
-
+* Users can type there calculations but are only allowed to type valid operations i.e (no letters)
+* User errors such as entering in invalid numbers i.e (50.21.10) are handled
 ## Demo
+<img alt="demo visual" src="calculatorTyping.gif"/>
 <img alt="demo visual" src="calculatordemo.gif"/>
 
 ## Technologies
@@ -22,6 +24,6 @@ JavaScript<br/>
 ## Usage
 
 ```
-    Open index.html with any browser and start calculating!
+    pull the repository and open index.html with any browser and start calculating!
 ```
 
