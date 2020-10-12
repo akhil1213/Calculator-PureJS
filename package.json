@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "name": "calculator-js",
+  "version": "1.0.0",
+  "description": "Simple Calculator",
+  "main": "calculator.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akhil1213/Calculator-PureJS.git"
+  },
+  "author": "Akhil Khanna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akhil1213/Calculator-PureJS/issues"
+  },
+  "homepage": "https://github.com/akhil1213/Calculator-PureJS#readme",
+  "devDependencies": {
+    "jest": "^26.5.3"
+  }
+}

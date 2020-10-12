@@ -3,6 +3,7 @@ let result = document.getElementById('result')
 const operations = ['+', '-', '*', '/']
 
 const buttonClicked = (value) => {
+    console.log(value)
     const resultText = result.innerHTML
     const inputString = input.innerHTML
     const inputLastChar = inputString.charAt(inputString.length - 1)
@@ -148,6 +149,8 @@ this.addEventListener('keyup', (e) => {
     // if (prevClickedElement != undefined) prevClickedElement.classList.remove('clicked')
     // prevClickedElement = curClickedElement
 });
+
+
 
 // const buildCalculator = () => {
     //     let numbers = '<tr>'
