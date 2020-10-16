@@ -3,7 +3,7 @@
   "name": "calculator-js",
   "version": "1.0.0",
   "description": "Simple Calculator",
-  "main": "calculator.js",
+  "private": "true",
   "scripts": {
     "test": "jest"
   },
@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/akhil1213/Calculator-PureJS#readme",
   "devDependencies": {
-    "jest": "^26.5.3"
+    "jest": "^26.5.3",
+    "webpack-cli": "^4.0.0"
+  },
+  "dependencies": {
+    "webpack": "^5.1.3"
   }
 }
